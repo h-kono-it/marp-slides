@@ -485,17 +485,17 @@ section.lead h1 {
 <header>AI時代の他責思考エンジニアリング</header>
 <h2 id="%E3%82%AC%E3%83%BC%E3%83%89%E3%83%AC%E3%83%BC%E3%83%AB%E5%85%B7%E4%BD%93%E4%BE%8Bgithub-actions-%E3%81%A7%E3%83%9E%E3%83%BC%E3%82%B8%E3%82%92%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF">ガードレール具体例：GitHub Actions でマージをブロック</h2>
 <h3 id="%E3%81%93%E3%81%AE%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%82%92%E9%80%9A%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%83%9E%E3%83%BC%E3%82%B8%E4%B8%8D%E5%8F%AF%E3%82%92%E5%BC%B7%E5%88%B6%E3%81%99%E3%82%8B">「このチェックを通らないとマージ不可」を強制する</h3>
-<p>yaml</p>
-<h1 id="githubworkflowsciyml">.github/workflows/ci.yml</h1>
-<p>jobs:<br />
-lint:<br />
-runs-on: ubuntu-latest<br />
-steps:<br />
-- uses: actions/checkout@v4<br />
-- run: npm ci<br />
-- run: npm run lint       # ESLint<br />
-- run: npm run typecheck  # tsc --noEmit<br />
-- run: npm test           # ユニットテスト</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-yaml"><span class="hljs-comment"># .github/workflows/ci.yml</span>
+<span class="hljs-attr">jobs:</span>
+  <span class="hljs-attr">lint:</span>
+    <span class="hljs-attr">runs-on:</span> <span class="hljs-string">ubuntu-latest</span>
+    <span class="hljs-attr">steps:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">uses:</span> <span class="hljs-string">actions/checkout@v4</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">ci</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">lint</span>       <span class="hljs-comment"># ESLint</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">run</span> <span class="hljs-string">typecheck</span>  <span class="hljs-comment"># tsc --noEmit</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">run:</span> <span class="hljs-string">npm</span> <span class="hljs-string">test</span>           <span class="hljs-comment"># ユニットテスト</span>
+</code></pre>
 <div class="box">
 AI が生成したコードでも、<strong>柵を通らないとマージできない</strong><br />
 「AIがやらかした」→「CI が止めてくれた」で完結
