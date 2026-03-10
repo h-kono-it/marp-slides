@@ -157,7 +157,7 @@ AIへの依存度が高いチェックは <strong>確率的 = 信頼できない
 
 ### 「このチェックを通らないとマージ不可」を強制する
 
-yaml
+```yaml
 # .github/workflows/ci.yml
 jobs:
   lint:
@@ -168,6 +168,7 @@ jobs:
       - run: npm run lint       # ESLint
       - run: npm run typecheck  # tsc --noEmit
       - run: npm test           # ユニットテスト
+```
 
 <div class="box">
 AI が生成したコードでも、<strong>柵を通らないとマージできない</strong><br>
