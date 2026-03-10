@@ -1,0 +1,75 @@
+name: Deploy Marp slides to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Build slides
+        run: |
+          mkdir -p out
+          for f in *.md; do
+            [ "$f" = "README.md" ] && continue
+            name="${f%.md}"
+            echo "Building: $f -> out/${name}.html"
+            marp "$f" --html --output "out/${name}.html"
+          done
+
+      - name: Generate index.html
+        run: |
+          cat > out/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="ja">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Slides</title>
+            <style>
+              body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+              h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
+              ul { list-style: none; padding: 0; }
+              li { margin: 12px 0; }
+              a { text-decoration: none; color: #2563eb; font-size: 1.1em; }
+              a:hover { text-decoration: underline; }
+            </style>
+          </head>
+          <body>
+            <h1>Slides</h1>
+            <ul>
+          EOF
+
+          for f in out/*.html; do
+            filename=$(basename "$f")
+            [ "$filename" = "index.html" ] && continue
+            name="${filename%.html}"
+            echo "      <li><a href=\"${filename}\">${name}</a></li>" >> out/index.html
+          done
+
+          cat >> out/index.html << 'EOF'
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
