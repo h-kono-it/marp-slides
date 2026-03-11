@@ -25,6 +25,7 @@ jobs:
       - name: Build slides
         run: |
           mkdir -p out
+          cp -r images out/images 2>/dev/null || true
           for f in *.md; do
             [ "$f" = "README.md" ] && continue
             name="${f%.md}"
