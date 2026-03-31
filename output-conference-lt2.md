@@ -30,6 +30,6 @@ style: |
 
 ![w:64](images/Lp82u-yj_400x400.jpg)
 
-**こうの (kouno)**　@hk_it7
+虎の穴ラボ株式会社 テックリード<br>**こうの (kouno)**　@hk_it7
 
 </div>
