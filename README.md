@@ -7,3 +7,7 @@ Marpで作った資料をまとめるリポジトリ
 ```sh
 npx @marp-team/marp-cli ./ -s
 ```
+
+```
+npx @marp-team/marp-cli hoge.md -o hoge.pdf --allow-local-files
+```
